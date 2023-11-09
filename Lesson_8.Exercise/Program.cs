@@ -26,10 +26,10 @@ namespace Lesson_8.Exercise
             Employee qaEngineer2 = new Employee("Инженер по контролю качества 2");
             Employee initiator = new Employee("Инициатор");
             Employee reviewer = new Employee("Рецензент");
-            Employee employee7 = new Employee("Employee 7");
-            Employee employee8 = new Employee("Employee 8");
-            Employee employee9 = new Employee("Employee 9");
-            Employee employee10 = new Employee("Employee 10");
+            Employee employee7 = new Employee("Работник 7");
+            Employee employee8 = new Employee("Работник 8");
+            Employee employee9 = new Employee("Работник 9");
+            Employee employee10 = new Employee("Работник 10");
 
             Project project = new Project("Примерный проект", DateTime.Now.AddDays(30), initiator, teamLead);
 
