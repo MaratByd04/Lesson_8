@@ -1,81 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lesson_8.Exercise
 {
-    enum ProjectStatus
+    public enum ProjectStatus
     {
-        Project,
-        Execution,
-        Closed
+        Проект,
+        Исполнение,
+        Закрыт
     }
-    enum TaskStatus
+    public enum TaskStatus
     {
         Назначена,
         Выполняется,
-        Рассматривается,
-        Выполнена
+        Обозревание,
+        Завершена
     }
     class Program
     {
-        static void PrintProjectInfo(Project project)
+        static void Main()
         {
-            Console.WriteLine($"Проект: {project.Description}");
-            Console.WriteLine($"Сроки: {project.Deadline}");
-            Console.WriteLine($"Инициатор: {project.Initiator}");
-            Console.WriteLine($"Ответственный за проект: {project.ProjectLead}");
-            Console.WriteLine("Задачи:");
+            Employee teamLead = new Employee("Руководитель группы");
+            Employee developer1 = new Employee("Разработчик 1");
+            Employee developer2 = new Employee("Разработчик 2");
+            Employee qaEngineer1 = new Employee("Инженер по контролю качества 1");
+            Employee qaEngineer2 = new Employee("Инженер по контролю качества 2");
+            Employee initiator = new Employee("Инициатор");
+            Employee reviewer = new Employee("Рецензент");
+            Employee employee7 = new Employee("Employee 7");
+            Employee employee8 = new Employee("Employee 8");
+            Employee employee9 = new Employee("Employee 9");
+            Employee employee10 = new Employee("Employee 10");
+
+            Project project = new Project("Примерный проект", DateTime.Now.AddDays(30), initiator, teamLead);
+
+            project.CreateTask("Задача 1", DateTime.Now.AddDays(10), developer1);
+            project.CreateTask("Задача 2", DateTime.Now.AddDays(15), developer2);
+            project.CreateTask("Задача 3", DateTime.Now.AddDays(20), qaEngineer1);
+            project.CreateTask("Задача 4", DateTime.Now.AddDays(25), qaEngineer2);
+            project.CreateTask("Задача 5", DateTime.Now.AddDays(10), employee7);
+            project.CreateTask("Задача 6", DateTime.Now.AddDays(15), employee8);
+            project.CreateTask("Задача 7", DateTime.Now.AddDays(20), employee9);
+            project.CreateTask("Задача 8", DateTime.Now.AddDays(25), employee10);
+
+            project.TransitionToExecution();
+
             foreach (var task in project.Tasks)
             {
-                Console.WriteLine($"- {task.Description} (Статус: {task.Status})");
+                task.StartTask();
+                task.CompleteTask();
+                task.AddReport("Задача Выполнена.");
             }
-        }
-        static void Main(string[] args)
-        {
-            List<string> teamMembers = new List<string>
-            {
-                "Ваня", "Анна", "Алексей", "Илюша", "Карим",
-                "Марат", "Егор", "Настя", "Амир", "Камиля"
-            };
-            List<string> tasks = new List<string>
-            {
-                "Приносить кофе", "Программирование", "Подметать пол", "Бить в баклуши", "Работать над дизайном",
-                "Действительно работать", "Стоять над душой", "Устранять ошибки", "Руководство всеми", "Составление плана"
-            };
 
-            Project project = new Project
+            if (project.IsClosed())
             {
-                Description = "Разработка современных приложений",
-                Deadline = new DateTime(2023, 12, 31),
-                Initiator = "Крупный инвестор",
-                ProjectLead = "Ганиев Марат",
-                Status = ProjectStatus.Project,
-                Tasks = new List<Task>()
-            };
-
-            foreach (var member in teamMembers)
-            {
-                foreach (var _task in tasks)
-                {
-                    Task task = new Task
-                    {
-                        Description = $"Задача *{_task}* для {member}",
-                        Deadline = new DateTime(2023, 11, 15),
-                        Initiator = "Руководитель проекта",
-                        Assignee = member,
-                        Status = TaskStatus.Назначена,
-                        Reports = new List<Report>()                     
-                    };
-                    project.Tasks.Add(task);
-                    continue;
-                }    
+                project.Status = ProjectStatus.Закрыт;
             }
-            PrintProjectInfo(project);
+            project.PrintProjectInfo();
+            Console.WriteLine("Статус проекта: " + project.Status);
         }
     }
 }
-
 
