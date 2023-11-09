@@ -95,7 +95,7 @@ namespace Lesson_8.Tumakov
 
         public void PrintAccountInfo()
         {
-            Console.WriteLine($"Счет: {accountNumber}");
+            Console.WriteLine($"Номер Счета: {accountNumber}");
             Console.WriteLine($"Баланс: {balance:C2}");
             Console.WriteLine($"Тип счета: {accountType}");
         }
